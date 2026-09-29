@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Misión Clase Extra</title>
+<style>
+:root{--bg:#eaf3fb;--card:#fff;--ink:#1b3557;--main:#244a7c;--teal:#2aa5b8;--ok:#2e9e6b;--okbg:#dff5ea;--bad:#d9634f;--badbg:#fde8e3;--sun:#ffc94d;--line:#c9dcee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f2036;--card:#183152;--ink:#e8f2fc;--main:#7fb2ea;--teal:#54c6d6;--okbg:#17422f;--badbg:#48231d;--line:#2c4b72}}
+:root[data-theme="dark"]{--bg:#0f2036;--card:#183152;--ink:#e8f2fc;--main:#7fb2ea;--teal:#54c6d6;--okbg:#17422f;--badbg:#48231d;--line:#2c4b72}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito","Trebuchet MS",system-ui,sans-serif;font-size:17px;line-height:1.45;min-height:100vh}
+main{max-width:640px;margin:0 auto;padding:18px 16px 40px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bar{flex:1;height:14px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--sun));border-radius:99px;transition:width .5s}
+.pts{font-weight:800;white-space:nowrap}
+.guide{display:flex;align-items:flex-end;gap:10px;margin:8px 0 14px}
+.guide svg{width:92px;height:92px;flex:none;animation:bob 3s ease-in-out infinite}
+.bubble{background:var(--card);border:2px solid var(--line);border-radius:20px 20px 20px 4px;padding:10px 14px;font-weight:700;flex:1}
+@keyframes bob{50%{transform:translateY(-5px)}}
+.card{background:var(--card);border:2px solid var(--line);border-radius:24px;padding:20px}
+h1{font-size:2rem;line-height:1.1;margin:0 0 8px;color:var(--main)}
+h2{font-size:1.25rem;line-height:1.3;margin:0 0 14px}
+p{margin:0 0 12px}
+.btn{font:inherit;font-weight:800;border:0;border-radius:16px;padding:13px 18px;background:var(--main);color:#fff;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.2);width:100%;margin-top:6px}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+.btn.alt{background:var(--teal)}
+.btn:disabled{opacity:.45;cursor:default}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-weight:700;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:10px;cursor:pointer;transition:transform .1s}
+.opt:hover{transform:translateX(3px)}
+.opt.sel{border-color:var(--main);background:var(--card);box-shadow:0 0 0 3px var(--teal) inset}
+.opt.ok{background:var(--okbg);border-color:var(--ok)}
+.opt.bad{background:var(--badbg);border-color:var(--bad);animation:shake .35s}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.fb{margin-top:10px;padding:10px 14px;border-radius:14px;font-weight:700}
+.fb.ok{background:var(--okbg)}.fb.bad{background:var(--badbg)}
+.slots{display:grid;gap:8px;margin-bottom:14px}
+.slot{min-height:48px;border:2px dashed var(--line);border-radius:14px;padding:10px 12px;font-weight:800;color:var(--main)}
+.slot.full{border-style:solid;border-color:var(--ok);background:var(--okbg);color:var(--ink)}
+.big{font-size:1.2rem;font-weight:800;text-align:center;padding:22px 12px;border-radius:18px;background:var(--bg);border:2px solid var(--line);margin-bottom:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stars{font-size:2.4rem;text-align:center;letter-spacing:6px;margin:6px 0 10px}
+.fall{position:fixed;top:-30px;font-size:26px;pointer-events:none;animation:fall linear forwards;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.guide svg,.opt.bad,.fall{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><div class="bar"><i id="pb"></i></div><div class="pts" id="pt">⭐ 0</div></div>
+  <div class="guide">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <line x1="50" y1="14" x2="50" y2="26" stroke="#244a7c" stroke-width="3" stroke-linecap="round"/>
+      <path d="M50 3l3.5 7.5 8 1-6 5.5 1.7 8L50 21l-7.2 4 1.7-8-6-5.5 8-1z" fill="#ffc94d"/>
+      <ellipse cx="50" cy="62" rx="36" ry="32" fill="#2aa5b8"/>
+      <ellipse cx="50" cy="66" rx="30" ry="24" fill="#8fdde8" opacity=".55"/>
+      <circle cx="38" cy="56" r="6" fill="#fff"/><circle cx="62" cy="56" r="6" fill="#fff"/>
+      <circle cx="39" cy="57" r="3.2" fill="#1b3557"/><circle cx="63" cy="57" r="3.2" fill="#1b3557"/>
+      <ellipse cx="27" cy="68" rx="5" ry="3" fill="#ff9db1" opacity=".8"/><ellipse cx="73" cy="68" rx="5" ry="3" fill="#ff9db1" opacity=".8"/>
+      <path id="mouth" d="M42 70q8 8 16 0" stroke="#1b3557" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="bubble" id="say">¡Hola! Soy Clasi.</div>
+  </div>
+  <div id="stage"></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const say=t=>$('say').textContent=t;
+const mouth=h=>$('mouth').setAttribute('d',h?'M40 68q10 12 20 0':'M42 74q8 -6 16 0');
+const cheers=['¡Bravo!','¡Eso es!','¡Qué tutor tan atento!','¡Perfecto!','¡Vas volando!'];
+const oops=['Casi. Mira la explicación 🙂','Ups, pasa. Lo importante es repasar.','Buen intento, sigamos.'];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+const steps=[
+ {t:'quiz',q:'¿Cuál es nuestro objetivo con este nuevo proceso?',o:['Dar más clases extras cada mes','Tener una mejor gestión de las clases extras que se brindan','Eliminar todas las clases extras'],a:1,e:'Queremos gestionarlas mejor, no darlas de más ni quitarlas.'},
+ {t:'multi',q:'¿Quiénes piden clases extras? Marca todas las que apliquen.',o:['Los padres','Servicio al cliente','Los tutores','Cualquier persona sin autorización'],a:[0,1,2],e:'Piden los padres, servicio al cliente y los tutores.'},
+ {t:'quiz',q:'¿Cuál es el problema actual?',o:['Se están impartiendo más clases extras de las necesarias','Faltan tutores disponibles','Los estudiantes no quieren clases extras'],a:0,e:'Se dictan más clases extras de las que realmente hacen falta.'},
+ {t:'quiz',q:'Algunos padres piden clases adicionales sin conocer...',o:['El horario del tutor','Los criterios y el límite de clases que pueden aprobarse al mes','El nombre de la plataforma'],a:1,e:'Desconocen los criterios y el límite mensual de clases aprobables.'},
+ {t:'sort',q:'Clasifica cada frase: ¿es el problema o lo que esperamos lograr?',i:[['Se dan más clases extras de las necesarias',0],['Reducir la cantidad de clases extras solicitadas',1],['Solicitudes que no cumplen los requisitos',0],['Tener un mayor control sobre las clases extras',1],['Padres que piden clases sin conocer el límite mensual',0]],c:['😟 Es el problema','🎯 Es lo que esperamos']},
+ {t:'order',q:'Ordena el paso a paso de una clase extra. Toca las tarjetas en el orden correcto.',s:['Usar la herramienta de verificación de clases extras','Solicitar la clase extra y esperar su aprobación','Dictar la clase extra','Llenar el informe de clase extra']},
+ {t:'quiz',q:'Antes de solicitar una clase extra, lo primero es...',o:['Dictar la clase y avisar después','Usar la herramienta de verificación de clases extras','Llenar el informe'],a:1,e:'El paso 1 siempre es verificar con la herramienta.'},
+ {t:'quiz',q:'Ya solicitaste la clase extra. ¿Qué haces?',o:['Esperar su aprobación','Dictarla de una vez','Pedirle al padre que la apruebe'],a:0,e:'Se espera la aprobación antes de dictarla.'},
+ {t:'quiz',q:'Ya dictaste la clase extra. Falta un último paso:',o:['Nada, ya terminó todo','Solicitar otra clase extra','Llenar el informe de clase extra'],a:2,e:'Cierra el ciclo llenando el informe de clase extra.'}
+];
+let n=0,score=0;
+const stage=$('stage');
+function hud(){ $('pb').style.width=(n/steps.length*100)+'%'; $('pt').textContent='⭐ '+score; }
+function start(){
+  n=0;score=0;hud();mouth(1);say('¡Hola! Soy Clasi, tu guía en esta misión.');
+  stage.innerHTML='<div class="card"><h1>Misión Clase Extra</h1><p>Repasemos juntos lo visto en el webinar. Son '+steps.length+' retos cortitos: preguntas, ordenar y clasificar.</p><p>Ganas una estrella por cada reto que aciertes a la primera. Equivocarte no pasa nada.</p><button class="btn" id="go">¡Empezar la misión!</button></div>';
+  $('go').onclick=show;
+}
+function done(first,msg){
+  if(first)score++;
+  mouth(first);say(first?pick(cheers):pick(oops));hud();
+  const b=document.createElement('button');b.className='btn alt';b.textContent=n===steps.length-1?'Ver mi resultado':'Siguiente reto';
+  b.onclick=()=>{n++;show()};stage.firstChild.appendChild(b);
+  if(msg){const d=document.createElement('div');d.className='fb '+(first?'ok':'bad');d.textContent=msg;stage.firstChild.insertBefore(d,b)}
+  b.focus();
+}
+function show(){
+  hud();
+  if(n>=steps.length)return end();
+  const s=steps[n];mouth(1);say('Reto '+(n+1)+' de '+steps.length);
+  stage.innerHTML='<div class="card"><h2>'+s.q+'</h2><div id="body"></div></div>';
+  const body=$('body');
+  if(s.t==='quiz'){
+    let first=true,fin=false;
+    shuffle(s.o.map((t,i)=>[t,i])).forEach(([t,i])=>{
+      const b=document.createElement('button');b.className='opt';b.textContent=t;
+      b.onclick=()=>{
+        if(fin)return;
+        if(i===s.a){b.classList.add('ok');fin=true;body.querySelectorAll('.opt').forEach(x=>x.disabled=true);done(first,s.e)}
+        else{first=false;b.classList.add('bad');b.disabled=true;say('Mmm, prueba otra vez.');mouth(0)}
+      };body.appendChild(b);
+    });
+  }
+  if(s.t==='multi'){
+    const sel=new Set();let fin=false;
+    shuffle(s.o.map((t,i)=>[t,i])).forEach(([t,i])=>{
+      const b=document.createElement('button');b.className='opt';b.textContent=t;b.dataset.i=i;
+      b.onclick=()=>{if(fin)return;sel.has(i)?sel.delete(i):sel.add(i);b.classList.toggle('sel')};body.appendChild(b);
+    });
+    const c=document.createElement('button');c.className='btn';c.textContent='Comprobar';
+    c.onclick=()=>{
+      if(fin)return;fin=true;let ok=true;
+      body.querySelectorAll('.opt').forEach(b=>{const i=+b.dataset.i,should=s.a.includes(i),got=sel.has(i);b.classList.remove('sel');if(should)b.classList.add('ok');else if(got){b.classList.add('bad');ok=false}if(should&&!got)ok=false;b.disabled=true});
+      c.remove();done(ok,s.e);
+    };body.appendChild(c);
+  }
+  if(s.t==='sort'){
+    const items=shuffle(s.i);let k=0,first=true;
+    const big=document.createElement('div');big.className='big';
+    const two=document.createElement('div');two.className='two';
+    const cnt=document.createElement('p');cnt.style.textAlign='center';
+    const draw=()=>{big.textContent=items[k][0];cnt.textContent='Frase '+(k+1)+' de '+items.length};
+    s.c.forEach((label,ci)=>{
+      const b=document.createElement('button');b.className='opt';b.style.textAlign='center';b.textContent=label;
+      b.onclick=()=>{
+        if(items[k][1]===ci){
+          b.classList.add('ok');mouth(1);
+          setTimeout(()=>{b.classList.remove('ok');k++;if(k<items.length)draw();else{body.innerHTML='';done(first,'Problema: exceso y falta de claridad. Meta: menos solicitudes y más control.')}},350);
+        }else{first=false;b.classList.add('bad');say('Ups, esa va en la otra.');mouth(0);setTimeout(()=>b.classList.remove('bad'),400)}
+      };two.appendChild(b);
+    });
+    body.append(big,two,cnt);draw();
+  }
+  if(s.t==='order'){
+    const slots=document.createElement('div');slots.className='slots';
+    s.s.forEach((_,i)=>{const d=document.createElement('div');d.className='slot';d.textContent='Paso '+(i+1);slots.appendChild(d)});
+    body.appendChild(slots);let k=0,first=true;
+    shuffle(s.s.map((t,i)=>[t,i])).forEach(([t,i])=>{
+      const b=document.createElement('button');b.className='opt';b.textContent=t;
+      b.onclick=()=>{
+        if(i===k){const sl=slots.children[k];sl.textContent=(k+1)+'. '+t;sl.classList.add('full');b.remove();k++;mouth(1);
+          if(k===s.s.length)done(first,'Verificar, solicitar, dictar y reportar.')}
+        else{first=false;b.classList.add('bad');say('Ese aún no toca. ¿Qué va primero?');mouth(0);setTimeout(()=>b.classList.remove('bad'),400)}
+      };body.appendChild(b);
+    });
+  }
+}
+function end(){
+  const total=steps.length,r=score/total;
+  const st=r>=.85?3:r>=.55?2:1;
+  const msg=st===3?'¡Tutor experto en clases extras!':st===2?'¡Muy bien! Ya casi lo dominas.':'¡Buen comienzo! Repasa y vuelve a jugar.';
+  $('pb').style.width='100%';mouth(1);say(msg);
+  stage.innerHTML='<div class="card"><h1>¡Misión cumplida!</h1><div class="stars">'+'⭐'.repeat(st)+'<span style="opacity:.25">'+'⭐'.repeat(3-st)+'</span></div><p style="text-align:center"><b>'+score+' de '+total+'</b> retos a la primera.</p><p style="text-align:center">Recuerda: <b>verificar</b>, <b>solicitar y esperar</b>, <b>dictar</b> y <b>llenar el informe</b>.</p><button class="btn" id="again">Jugar otra vez</button></div>';
+  $('again').onclick=start;
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)for(let i=0;i<24;i++){const e=document.createElement('div');e.className='fall';e.textContent=pick(['⭐','🎉','✨','💙']);e.style.left=Math.random()*100+'vw';e.style.animationDuration=(2+Math.random()*2.5)+'s';e.style.animationDelay=Math.random()*.8+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),5500)}
+}
+start();
+</script>
+</body>
+</html>
